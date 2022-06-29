@@ -1,0 +1,14 @@
+.auth-background-holder {
+  background:url("../images/background/background-login-1.svg") no-repeat center center !important;
+}
+
+.wrapper {
+  height: 100%;
+  display: table;
+  width: 100%;
+}
+
+.main-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
