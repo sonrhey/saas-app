@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('template-authentication.login.index');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/master-dashboard', function () {
   return view('master.content.dashboard.index');
+});
+
+Route::get('/college-dashboard', function () {
+  return view('college.content.dashboard.index');
 });
