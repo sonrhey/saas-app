@@ -24,3 +24,7 @@ Route::get('/master-dashboard', function () {
 Route::get('/college-dashboard', function () {
   return view('college.content.dashboard.index');
 });
+
+Route::get('/student-dashboard', function () {
+  return view('student.content.dashboard.index');
+});
