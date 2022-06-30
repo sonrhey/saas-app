@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Master\DashboardController as MasterDashboard;
+use App\Http\Controllers\College\DashboardController as CollegeDashboard;
+use App\Http\Controllers\Student\DashboardController as StudentDashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +20,6 @@ Route::get('/', function () {
     return view('template-authentication.login.index');
 });
 
-Route::get('/master-dashboard', function () {
-  return view('master.content.dashboard.index');
-});
-
-Route::get('/college-dashboard', function () {
-  return view('college.content.dashboard.index');
-});
-
-Route::get('/student-dashboard', function () {
-  return view('student.content.dashboard.index');
-});
+Route::resource('/master-dashboard', MasterDashboard::class);
+Route::resource('/college-dashboard', CollegeDashboard::class);
+Route::resource('/student-dashboard', StudentDashboard::class);
