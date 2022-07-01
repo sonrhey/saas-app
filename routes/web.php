@@ -20,6 +20,6 @@ Route::get('/', function () {
     return view('template-authentication.login.index');
 });
 
-Route::resource('/master-dashboard', MasterDashboard::class);
-Route::resource('/college-dashboard', CollegeDashboard::class);
-Route::resource('/student-dashboard', StudentDashboard::class);
+Route::resource('/master', MasterDashboard::class);
+Route::resource('/college', CollegeDashboard::class);
+Route::resource('/student', StudentDashboard::class);
