@@ -9,6 +9,8 @@ class ApplicationRole extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'application_role_id';
+    
     protected $fillable = [
       'role_code',
       'role_name'
