@@ -4,6 +4,7 @@ use App\Http\Controllers\Master\DashboardController as MasterDashboard;
 use App\Http\Controllers\College\DashboardController as CollegeDashboard;
 use App\Http\Controllers\Student\DashboardController as StudentDashboard;
 use App\Http\Controllers\Global\LogoutController;
+use App\Http\Controllers\Master\CollegeRegistrationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,7 @@ Route::group(['middleware' => 'auth'], function() {
 
   Route::group(['middleware' => 'master'], function() {
     Route::get('/master', [MasterDashboard::class, 'index']);
+    Route::get('/master/college-registration', [CollegeRegistrationController::class, 'index']);
   });
 
   Route::group(['middleware' => 'college'], function() {

@@ -18,7 +18,7 @@ class MasterMiddleware
     public function handle(Request $request, Closure $next)
     {
       $roles = new Roles();
-      if ('/'.request()->path() === $roles->CURRENT_URL) {
+      if (request()->is(Roles::MASTER_WILDCARD)) {
         return $next($request);
       }
       return redirect($roles->CURRENT_URL);
