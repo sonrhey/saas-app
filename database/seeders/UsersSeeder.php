@@ -23,6 +23,20 @@ class UsersSeeder extends Seeder
           'username' => 'admin',
           'password' => bcrypt('Default@123'),
           'application_role_id'=> ApplicationRole::where('role_code', 'MST')->first()->application_role_id
+        ],
+        [
+          'name' => 'St. Therese College',
+          'email' => 'stherese@college.com',
+          'username' => 'stherese',
+          'password' => bcrypt('Default@123'),
+          'application_role_id'=> ApplicationRole::where('role_code', 'CLL')->first()->application_role_id
+        ],
+        [
+          'name' => 'John Doe',
+          'email' => 'jdoe@student.com',
+          'username' => 'jdoe',
+          'password' => bcrypt('Default@123'),
+          'application_role_id'=> ApplicationRole::where('role_code', 'STD')->first()->application_role_id
         ]
       ]);
   }

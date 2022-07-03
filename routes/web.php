@@ -3,6 +3,7 @@
 use App\Http\Controllers\Master\DashboardController as MasterDashboard;
 use App\Http\Controllers\College\DashboardController as CollegeDashboard;
 use App\Http\Controllers\Student\DashboardController as StudentDashboard;
+use App\Http\Controllers\Global\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('template-authentication.login.index');
+Route::group(['middleware' => 'auth'], function() {
+  Route::get('/logout', [LogoutController::class, 'logout']);
+
+  Route::group(['middleware' => 'master'], function() {
+    Route::get('/master', [MasterDashboard::class, 'index']);
+  });
+
+  Route::group(['middleware' => 'college'], function() {
+    Route::get('/college/{college}', [CollegeDashboard::class, 'index']);
+  });
+
+  Route::group(['middleware' => 'student'], function() {
+    Route::get('/student/{student}', [StudentDashboard::class, 'index']);
+  });
 });
 
-Route::resource('/master', MasterDashboard::class);
-Route::resource('/college', CollegeDashboard::class);
-Route::resource('/student', StudentDashboard::class);
+require __DIR__.'/auth.php';
