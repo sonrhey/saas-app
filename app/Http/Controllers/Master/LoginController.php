@@ -11,6 +11,7 @@ use App\Models\Domain;
 use ErrorException;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -25,6 +26,9 @@ class LoginController extends Controller
     if (!is_string($redirectTo)) {
       return redirect()->back();
     }
+    $user = Auth::user();
+    $token = $user->createToken('token')->plainTextToken;
+    $request->session()->put('token', $token);
     return redirect($redirectTo);
   }
 }

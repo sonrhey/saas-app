@@ -9,6 +9,7 @@ class College extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'college_id';
     protected $fillable = [
       'name',
       'address',
@@ -16,4 +17,8 @@ class College extends Model
       'owner',
       'user_id'
     ];
+
+    public function user() {
+      return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -21,18 +21,6 @@ class DomainsSeeder extends Seeder
           "url" => "/master",
           "application_role_id" => 1,
           "slug" => ''
-        ],
-        [
-          "user_id" => 2,
-          "url" => "/college/st-therese",
-          "application_role_id" => 2,
-          "slug" => 'st-therese'
-        ],
-        [
-          "user_id" => 3,
-          "url" => "/student/john-doe",
-          "application_role_id" => 3,
-          "slug" => 'john-doe'
         ]
       ]);
     }

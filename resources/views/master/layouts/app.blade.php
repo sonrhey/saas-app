@@ -10,6 +10,8 @@
     <link rel="shortcut icon" href="favicon.ico"> 
     <script defer src="{{ asset('template-assets/assets/plugins/fontawesome/js/all.min.js') }}"></script>
     <link id="theme-style" rel="stylesheet" href="{{ asset('template-assets/assets/css/portal.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/waitMe.min.css') }}">
+    @yield('custom-css')
 </head> 
 
 <body class="app">   	
@@ -23,12 +25,18 @@
       </div>
     </div>
   </div> 					
-      
+  <?php
+    $user = Auth::user(); 
+    $token =  $user->createToken('token')->plainTextToken; 
+  ?>
   <script src="{{ asset('template-assets/assets/plugins/popper.min.js') }}"></script>
-  <script src="{{ asset('template-assets/assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>  
-  <script src="{{ asset('template-assets/assets/plugins/chart.js/chart.min.js') }}"></script> 
-  <script src="{{ asset('template-assets/assets/js/index-charts.js') }}"></script> 
-  <script src="{{ asset('template-assets/assets/js/app.js') }}"></script> 
+  <script src="{{ asset('template-assets/assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('js/app.js') }}"></script>
+  <script src="{{ asset('js/waitMe.min.js') }}"></script>
+  <script>
+    const token =  '{{ $token }}'
+  </script>
+  @yield('custom-js')
 </body>
 </html> 
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Master\api\v1\CollegeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum'])->group(function () {
+  Route::post('/v1/master/college/create', [CollegeController::class, 'create_college']);
 });
