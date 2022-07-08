@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function() {
   Route::group(['middleware' => 'master'], function() {
     Route::get('/master', [MasterDashboard::class, 'index']);
     Route::get('/master/college-registration', [CollegeRegistrationController::class, 'index']);
+    Route::get('/master/form-creation', [CollegeRegistrationController::class, 'index']);
   });
 
   Route::group(['middleware' => 'college'], function() {

@@ -50,4 +50,12 @@ class User extends Authenticatable
     public function role() {
       return $this->belongsTo(ApplicationRole::class, 'application_role_id');
     }
+
+    public function college() {
+      return $this->hasOne(College::class, 'user_id');
+    }
+
+    public function domain() {
+      return $this->hasOne(Domain::class, 'user_id');
+    }
 }
