@@ -1,11 +1,11 @@
 @extends('master.layouts.app')
-@section('page-title', 'College Forms Creation')
+@section('page-title', 'Student Forms Creation')
 @section('content')
 <div class="app-card app-card-chart h-100 shadow-sm">
   <div class="app-card-header p-3">
     <div class="row justify-content-between align-items-center">
       <div class="col-auto">
-        <h4 class="app-card-title">College Forms Creation</h4>
+        <h4 class="app-card-title">Student Forms Creation</h4>
       </div>
     </div>
   </div>
@@ -29,5 +29,5 @@
 
 @section('custom-js')
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-<script src="{{ asset('js/master/college/form-creation/index.js') }}"></script>
+<script src="{{ asset('js/master/college/form-creation/student.js') }}"></script>
 @endsection

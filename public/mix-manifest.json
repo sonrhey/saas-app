@@ -1,5 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/test.js": "/js/test.js",
-    "/js/master/college/index.js": "/js/master/college/index.js"
+    "/js/master/college/index.js": "/js/master/college/index.js",
+    "/js/master/college/form-creation/index.js": "/js/master/college/form-creation/index.js",
+    "/js/master/college/form-creation/student.js": "/js/master/college/form-creation/student.js"
 }

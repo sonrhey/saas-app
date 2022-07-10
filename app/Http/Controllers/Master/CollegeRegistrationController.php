@@ -15,4 +15,12 @@ class CollegeRegistrationController extends Controller
   public function college_list() {
     return view('master.content.college-list.index');
   }
+  
+  public function college_form_creation() {
+    return view('master.content.form-creation.index');
+  }
+
+  public function college_form_creation_student() {
+    return view('master.content.form-creation.student');
+  }
 }
