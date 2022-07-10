@@ -1,6 +1,6 @@
 const collegeAPI = () => {
-  const create = 'http://localhost:3002/api/v1/master/college/create';
-  const read = null;
+  const create = `${APP_URL}master/college/create`;
+  const read = `${APP_URL}master/college/college-list`;
   const update = null;
   const destroy = null;
 

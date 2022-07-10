@@ -85,4 +85,14 @@ class CollegeController extends Controller
 
     return response()->json($this->response);
   }
+
+  public function college_list() {
+    $colleges = College::all();
+
+    $this->response->success = true;
+    $this->response->message = 'ok';
+    $this->response->data = $colleges;
+    
+    return response()->json($this->response);
+  }
 }
