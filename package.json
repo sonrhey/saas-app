@@ -21,6 +21,7 @@
         "crypto-js": "^4.1.1",
         "datatables.net": "^1.12.1",
         "datatables.net-dt": "^1.12.1",
+        "formBuilder": "^3.8.3",
         "jquery": "^3.6.0",
         "sweetalert2": "^11.4.20",
         "toastify-js": "^1.11.2"

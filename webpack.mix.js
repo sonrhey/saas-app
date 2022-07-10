@@ -15,4 +15,6 @@ mix.browserSync('localhost');
 
 mix.js(`${jsResourcesPath}/app.js`, `${jsPublicPath}/app.js`)
 .js(`${jsResourcesPath}/test.js`, `${jsPublicPath}/test.js`)
-.js(`${jsResourcesPath}/master/college/index.js`, `${publicMasterPath}/college/index.js`);
+.js(`${jsResourcesPath}/master/college/index.js`, `${publicMasterPath}/college/index.js`)
+.js(`${jsResourcesPath}/master/college/form-creation/index.js`, `${publicMasterPath}/college/form-creation/index.js`)
+.js(`${jsResourcesPath}/master/college/form-creation/student.js`, `${publicMasterPath}/college/form-creation/student.js`);
