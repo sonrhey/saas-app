@@ -33,6 +33,13 @@ const commonServices = () => {
     return headers;
   }
 
+  const datatablesHeaders = () => {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    }
+    return headers;
+  }
+
   const toastNotification = ({
     message: message,
     background: background
@@ -55,7 +62,7 @@ const commonServices = () => {
     $('form').trigger('reset');
   }
 
-  return { loader, getHeaders, toastNotification }
+  return { loader, getHeaders, toastNotification, datatablesHeaders }
 }
 
 export default commonServices;

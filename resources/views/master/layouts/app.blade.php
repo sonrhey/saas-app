@@ -34,6 +34,7 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="{{ asset('js/waitMe.min.js') }}"></script>
   <script>
+    const APP_URL = {!! json_encode(url('/').'/api/v1/') !!}
     const token =  '{{ $token }}'
   </script>
   @yield('custom-js')

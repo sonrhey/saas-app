@@ -2,7 +2,9 @@ import forms from './forms';
 import college from './apis';
 
 const { collegeInformations } = forms();
-const { createCollege } = college();
+const { createCollege, showCollegeList } = college();
+
+const loadColleges = showCollegeList();
 
 $('#college-form').on('submit', function(e) {
   e.preventDefault();

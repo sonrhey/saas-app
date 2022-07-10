@@ -2209,6 +2209,13 @@ var commonServices = function commonServices() {
     return headers;
   };
 
+  var datatablesHeaders = function datatablesHeaders() {
+    var headers = {
+      'Authorization': "Bearer ".concat(token)
+    };
+    return headers;
+  };
+
   var toastNotification = function toastNotification(_ref) {
     var message = _ref.message,
         background = _ref.background;
@@ -2236,7 +2243,8 @@ var commonServices = function commonServices() {
   return {
     loader: loader,
     getHeaders: getHeaders,
-    toastNotification: toastNotification
+    toastNotification: toastNotification,
+    datatablesHeaders: datatablesHeaders
   };
 };
 

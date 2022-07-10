@@ -1,9 +1,11 @@
 import axios from "axios";
 import collegeAPI from "./endpoints";
 import commonServices from "../../commonServices";
+import DataTable from 'datatables.net';
+import 'datatables.net-dt/css/jquery.dataTables.css';
 
 const { create, read, update, destroy } = collegeAPI();
-const { loader, getHeaders, toastNotification } = commonServices();
+const { loader, getHeaders, toastNotification, datatablesHeaders } = commonServices();
 const { show, hide } = loader();
 
 const college = () => {
@@ -38,7 +40,39 @@ const college = () => {
     }
   }
 
-  return { createCollege }
+  const showCollegeList = async () => {
+    const collegeList = new DataTable('#college-list', {
+      ajax: {
+        url: read,
+        type: 'GET',
+        dataType: 'json',
+        headers: datatablesHeaders()
+      },
+      order : [ 0, 'desc' ],
+      columns: [
+        { data: "college_id"},
+        { data: "name"},
+        { data: "registered_name"},
+        { data: "address"}
+      ],  
+      columnDefs: [
+        {
+          targets: 4,
+          render : function ( data, type, row ) {
+            const action_buttons = `
+              <button type="button" class="btn btn-primary btn-view-data"><i class='fa fa-edit'></i></button>
+              <button type="button" class="btn btn-danger btn-edit-data"><i class='fa fa-trash'></i></button>
+            `;
+            return action_buttons;
+          }
+        }
+      ]
+    });
+
+    return collegeList;
+  }
+
+  return { createCollege, showCollegeList }
 }
 
 export default college;
