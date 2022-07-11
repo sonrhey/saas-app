@@ -14,10 +14,10 @@
       <div class="mb-3 row">
         <label for="select-college" class="col-sm-2 col-form-label">College:</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" placeholder="Select College" readonly>
+          <input type="text" class="form-control" placeholder="Select College" name="college_name" readonly>
         </div>
         <div class="col-sm-2">
-          <button class="btn btn-secondary" type="button">...</button>
+          <button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#college-list-modal" type="button">...</button>
         </div>
       </div>
     </div>
@@ -25,9 +25,9 @@
     </div>
   </div>
 </div>
+@include('master.modal.college-list')
 @endsection
 
 @section('custom-js')
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="{{ asset('js/master/college/form-creation/index.js') }}"></script>
 @endsection

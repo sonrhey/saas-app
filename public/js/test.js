@@ -2170,8 +2170,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var toastify_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! toastify-js */ "./node_modules/toastify-js/src/toastify.js");
 /* harmony import */ var toastify_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(toastify_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var toastify_js_src_toastify_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! toastify-js/src/toastify.css */ "./node_modules/toastify-js/src/toastify.css");
+/* harmony import */ var _constants_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants/index */ "./resources/js/constants/index.js");
 
 
+
+
+var _constants = (0,_constants_index__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+    RESPONSE_SUCCESS = _constants.RESPONSE_SUCCESS,
+    RESPONSE_ERROR = _constants.RESPONSE_ERROR;
 
 var commonServices = function commonServices() {
   var loader = function loader() {
@@ -2240,15 +2246,66 @@ var commonServices = function commonServices() {
     $('form').trigger('reset');
   };
 
+  var serverSuccessResponse = function serverSuccessResponse(_ref2) {
+    var response = _ref2.response;
+
+    if (response.success) {
+      toastNotification({
+        message: response.data,
+        background: RESPONSE_SUCCESS
+      });
+      return;
+    }
+
+    toastNotification({
+      message: response.data,
+      background: RESPONSE_ERROR
+    });
+  };
+
+  var clientErrorResponse = function clientErrorResponse(_ref3) {
+    var error = _ref3.error;
+    toastNotification({
+      message: error.message,
+      background: RESPONSE_ERROR
+    });
+  };
+
   return {
     loader: loader,
     getHeaders: getHeaders,
     toastNotification: toastNotification,
-    datatablesHeaders: datatablesHeaders
+    datatablesHeaders: datatablesHeaders,
+    serverSuccessResponse: serverSuccessResponse,
+    clientErrorResponse: clientErrorResponse
   };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (commonServices);
+
+/***/ }),
+
+/***/ "./resources/js/constants/index.js":
+/*!*****************************************!*\
+  !*** ./resources/js/constants/index.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var response = function response() {
+  var RESPONSE_SUCCESS = 'linear-gradient(to right, #00b09b, #96c93d)';
+  var RESPONSE_ERROR = 'linear-gradient(to bottom right, #CE1D4F, #E2886A';
+  return {
+    RESPONSE_SUCCESS: RESPONSE_SUCCESS,
+    RESPONSE_ERROR: RESPONSE_ERROR
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (response);
 
 /***/ }),
 
