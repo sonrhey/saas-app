@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Response\Response;
 use App\Models\ApplicationRole;
 use App\Models\College;
+use App\Models\CollegeForm;
 use App\Models\Domain;
 use App\Models\User;
 use Exception;
@@ -34,7 +35,7 @@ class CollegeController extends Controller
       DB::beginTransaction();
       $details = (array) $request->college_details;
       $credentials = (array) $request->college_credentials;
-    
+
       $user = new User();
       $user->name = $details["registered_name"];
       $user->email = $credentials["email"];
@@ -81,7 +82,7 @@ class CollegeController extends Controller
       $this->response->success = false;
       $this->response->message = 'ok';
       $this->response->data = $ex->getMessage();
-    } 
+    }
 
     return response()->json($this->response);
   }
@@ -92,7 +93,24 @@ class CollegeController extends Controller
     $this->response->success = true;
     $this->response->message = 'ok';
     $this->response->data = $colleges;
-    
+
+    return response()->json($this->response);
+  }
+
+  public function college_form(Request $request) {
+    try {
+      $college_form = new CollegeForm($request->all());
+      $college_form->save();
+
+      $this->response->success = true;
+      $this->response->message = 'ok';
+      $this->response->data = Messages::CREATE_SUCCESS;
+    } catch (Exception $ex) {
+      $this->response->success = false;
+      $this->response->message = 'ok';
+      $this->response->data = Messages::CREATE_ERROR;
+    }
+
     return response()->json($this->response);
   }
 }

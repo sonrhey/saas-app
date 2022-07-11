@@ -2170,8 +2170,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var toastify_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! toastify-js */ "./node_modules/toastify-js/src/toastify.js");
 /* harmony import */ var toastify_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(toastify_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var toastify_js_src_toastify_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! toastify-js/src/toastify.css */ "./node_modules/toastify-js/src/toastify.css");
+/* harmony import */ var _constants_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants/index */ "./resources/js/constants/index.js");
 
 
+
+
+var _constants = (0,_constants_index__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+    RESPONSE_SUCCESS = _constants.RESPONSE_SUCCESS,
+    RESPONSE_ERROR = _constants.RESPONSE_ERROR;
 
 var commonServices = function commonServices() {
   var loader = function loader() {
@@ -2240,15 +2246,66 @@ var commonServices = function commonServices() {
     $('form').trigger('reset');
   };
 
+  var serverSuccessResponse = function serverSuccessResponse(_ref2) {
+    var response = _ref2.response;
+
+    if (response.success) {
+      toastNotification({
+        message: response.data,
+        background: RESPONSE_SUCCESS
+      });
+      return;
+    }
+
+    toastNotification({
+      message: response.data,
+      background: RESPONSE_ERROR
+    });
+  };
+
+  var clientErrorResponse = function clientErrorResponse(_ref3) {
+    var error = _ref3.error;
+    toastNotification({
+      message: error.message,
+      background: RESPONSE_ERROR
+    });
+  };
+
   return {
     loader: loader,
     getHeaders: getHeaders,
     toastNotification: toastNotification,
-    datatablesHeaders: datatablesHeaders
+    datatablesHeaders: datatablesHeaders,
+    serverSuccessResponse: serverSuccessResponse,
+    clientErrorResponse: clientErrorResponse
   };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (commonServices);
+
+/***/ }),
+
+/***/ "./resources/js/constants/index.js":
+/*!*****************************************!*\
+  !*** ./resources/js/constants/index.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var response = function response() {
+  var RESPONSE_SUCCESS = 'linear-gradient(to right, #00b09b, #96c93d)';
+  var RESPONSE_ERROR = 'linear-gradient(to bottom right, #CE1D4F, #E2886A';
+  return {
+    RESPONSE_SUCCESS: RESPONSE_SUCCESS,
+    RESPONSE_ERROR: RESPONSE_ERROR
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (response);
 
 /***/ }),
 
@@ -2288,13 +2345,16 @@ var _collegeAPI = (0,_endpoints__WEBPACK_IMPORTED_MODULE_1__["default"])(),
     create = _collegeAPI.create,
     read = _collegeAPI.read,
     update = _collegeAPI.update,
-    destroy = _collegeAPI.destroy;
+    destroy = _collegeAPI.destroy,
+    collegeForm = _collegeAPI.collegeForm;
 
 var _commonServices = (0,_commonServices__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     loader = _commonServices.loader,
     getHeaders = _commonServices.getHeaders,
     toastNotification = _commonServices.toastNotification,
-    datatablesHeaders = _commonServices.datatablesHeaders;
+    datatablesHeaders = _commonServices.datatablesHeaders,
+    serverSuccessResponse = _commonServices.serverSuccessResponse,
+    clientErrorResponse = _commonServices.clientErrorResponse;
 
 var _loader = loader(),
     show = _loader.show,
@@ -2322,41 +2382,26 @@ var college = function college() {
             case 8:
               response = _context.sent;
               hide();
-
-              if (!response.success) {
-                _context.next = 13;
-                break;
-              }
-
-              toastNotification({
-                message: response.data,
-                background: 'linear-gradient(to right, #00b09b, #96c93d)'
+              serverSuccessResponse({
+                response: response
               });
-              return _context.abrupt("return");
-
-            case 13:
-              toastNotification({
-                message: response.data,
-                background: 'linear-gradient(to bottom right, #CE1D4F, #E2886A'
-              });
-              _context.next = 20;
+              _context.next = 17;
               break;
 
-            case 16:
-              _context.prev = 16;
+            case 13:
+              _context.prev = 13;
               _context.t0 = _context["catch"](1);
               hide();
-              toastNotification({
-                message: _context.t0.message,
-                background: 'linear-gradient(to bottom right, #CE1D4F, #E2886A'
+              clientErrorResponse({
+                error: _context.t0
               });
 
-            case 20:
+            case 17:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 16]]);
+      }, _callee, null, [[1, 13]]);
     }));
 
     return function createCollege(_x) {
@@ -2411,9 +2456,81 @@ var college = function college() {
     };
   }();
 
+  var modalCollegeList = function modalCollegeList() {
+    var collegeList = new (datatables_net__WEBPACK_IMPORTED_MODULE_3___default())('#college-list', {
+      ajax: {
+        url: read,
+        type: 'GET',
+        dataType: 'json',
+        headers: datatablesHeaders()
+      },
+      order: [0, 'desc'],
+      columns: [{
+        data: "college_id"
+      }, {
+        data: "name"
+      }, {
+        data: "registered_name"
+      }, {
+        data: "address"
+      }]
+    });
+    return collegeList;
+  };
+
+  var collegeForms = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_ref4) {
+      var data, requests, response;
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              data = _ref4.data;
+              _context3.prev = 1;
+              show();
+              _context3.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post(collegeForm, data, getHeaders());
+
+            case 5:
+              requests = _context3.sent;
+              _context3.next = 8;
+              return requests.data;
+
+            case 8:
+              response = _context3.sent;
+              hide();
+              serverSuccessResponse({
+                response: response
+              });
+              _context3.next = 17;
+              break;
+
+            case 13:
+              _context3.prev = 13;
+              _context3.t0 = _context3["catch"](1);
+              hide();
+              clientErrorResponse({
+                error: _context3.t0
+              });
+
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 13]]);
+    }));
+
+    return function collegeForms(_x2) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
   return {
     createCollege: createCollege,
-    showCollegeList: showCollegeList
+    showCollegeList: showCollegeList,
+    modalCollegeList: modalCollegeList,
+    collegeForms: collegeForms
   };
 };
 
@@ -2437,11 +2554,13 @@ var collegeAPI = function collegeAPI() {
   var read = "".concat(APP_URL, "master/college/college-list");
   var update = null;
   var destroy = null;
+  var collegeForm = "".concat(APP_URL, "master/college/college-form");
   return {
     create: create,
     read: read,
     update: update,
-    destroy: destroy
+    destroy: destroy,
+    collegeForm: collegeForm
   };
 };
 
@@ -2474,8 +2593,14 @@ var forms = function forms() {
       password: null
     }
   };
+  var collegeFormObject = {
+    college_id: null,
+    form_data: null,
+    type: null
+  };
   return {
-    collegeInformations: collegeInformations
+    collegeInformations: collegeInformations,
+    collegeFormObject: collegeFormObject
   };
 };
 

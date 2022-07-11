@@ -1,5 +1,8 @@
 import Toastify from 'toastify-js';
 import "toastify-js/src/toastify.css";
+import constants from './constants/index';
+
+const { RESPONSE_SUCCESS, RESPONSE_ERROR } = constants();
 
 const commonServices = () => {
   const loader = () => {
@@ -46,7 +49,7 @@ const commonServices = () => {
   }) => {
     Toastify({
       text: message,
-      duration: 3000, 
+      duration: 3000,
       newWindow: true,
       close: false,
       gravity: "top", // `top` or `bottom`
@@ -62,7 +65,34 @@ const commonServices = () => {
     $('form').trigger('reset');
   }
 
-  return { loader, getHeaders, toastNotification, datatablesHeaders }
+  const serverSuccessResponse = ({
+    response: response
+  }) => {
+    if (response.success) {
+      toastNotification({
+        message: response.data,
+        background: RESPONSE_SUCCESS,
+      });
+
+      return;
+    }
+
+    toastNotification({
+      message: response.data,
+      background: RESPONSE_ERROR,
+    });
+  }
+
+  const clientErrorResponse = ({
+    error: error
+  }) => {
+    toastNotification({
+      message: error.message,
+      background: RESPONSE_ERROR,
+    })
+  }
+
+  return { loader, getHeaders, toastNotification, datatablesHeaders, serverSuccessResponse, clientErrorResponse }
 }
 
 export default commonServices;

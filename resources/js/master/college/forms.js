@@ -12,8 +12,14 @@ const forms = () => {
       password: null
     }
   }
-  
-  return { collegeInformations }  
+
+  const collegeFormObject = {
+    college_id: null,
+    form_data: null,
+    type: null
+  }
+
+  return { collegeInformations, collegeFormObject }
 }
 
 export default forms;

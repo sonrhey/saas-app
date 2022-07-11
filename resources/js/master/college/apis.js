@@ -4,8 +4,8 @@ import commonServices from "../../commonServices";
 import DataTable from 'datatables.net';
 import 'datatables.net-dt/css/jquery.dataTables.css';
 
-const { create, read, update, destroy } = collegeAPI();
-const { loader, getHeaders, toastNotification, datatablesHeaders } = commonServices();
+const { create, read, update, destroy, collegeForm } = collegeAPI();
+const { loader, getHeaders, toastNotification, datatablesHeaders, serverSuccessResponse, clientErrorResponse } = commonServices();
 const { show, hide } = loader();
 
 const college = () => {
@@ -17,26 +17,14 @@ const college = () => {
       const requests = await axios.post(create, data, getHeaders());
       const response = await requests.data;
       hide();
-      if (response.success) {
-        toastNotification({
-          message: response.data,
-          background: 'linear-gradient(to right, #00b09b, #96c93d)',
-        });
-
-        return;
-      }
-
-      toastNotification({
-        message: response.data,
-        background: 'linear-gradient(to bottom right, #CE1D4F, #E2886A',
+      serverSuccessResponse({
+        response: response
       });
-      
     } catch (error) {
       hide();
-      toastNotification({
-        message: error.message,
-        background: 'linear-gradient(to bottom right, #CE1D4F, #E2886A',
-      })  
+      clientErrorResponse({
+        error: error
+      });
     }
   }
 
@@ -54,7 +42,7 @@ const college = () => {
         { data: "name"},
         { data: "registered_name"},
         { data: "address"}
-      ],  
+      ],
       columnDefs: [
         {
           targets: 4,
@@ -72,7 +60,46 @@ const college = () => {
     return collegeList;
   }
 
-  return { createCollege, showCollegeList }
+  const modalCollegeList = () => {
+    const collegeList = new DataTable('#college-list', {
+      ajax: {
+        url: read,
+        type: 'GET',
+        dataType: 'json',
+        headers: datatablesHeaders()
+      },
+      order : [ 0, 'desc' ],
+      columns: [
+        { data: "college_id"},
+        { data: "name"},
+        { data: "registered_name"},
+        { data: "address"}
+      ]
+    });
+
+    return collegeList;
+  }
+
+  const collegeForms = async ({
+    data: data
+  }) => {
+    try {
+      show();
+      const requests = await axios.post(collegeForm, data, getHeaders());
+      const response = await requests.data;
+      hide();
+      serverSuccessResponse({
+        response: response
+      });
+    } catch (error) {
+      hide();
+      clientErrorResponse({
+        error: error
+      });
+    }
+  }
+
+  return { createCollege, showCollegeList, modalCollegeList, collegeForms }
 }
 
 export default college;
