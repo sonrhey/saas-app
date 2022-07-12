@@ -2299,9 +2299,13 @@ __webpack_require__.r(__webpack_exports__);
 var response = function response() {
   var RESPONSE_SUCCESS = 'linear-gradient(to right, #00b09b, #96c93d)';
   var RESPONSE_ERROR = 'linear-gradient(to bottom right, #CE1D4F, #E2886A';
+  var FORM_TYPE_COLLEGE = 'college';
+  var FORM_TYPE_STUDENT = 'student';
   return {
     RESPONSE_SUCCESS: RESPONSE_SUCCESS,
-    RESPONSE_ERROR: RESPONSE_ERROR
+    RESPONSE_ERROR: RESPONSE_ERROR,
+    FORM_TYPE_COLLEGE: FORM_TYPE_COLLEGE,
+    FORM_TYPE_STUDENT: FORM_TYPE_STUDENT
   };
 };
 
@@ -2346,7 +2350,8 @@ var _collegeAPI = (0,_endpoints__WEBPACK_IMPORTED_MODULE_1__["default"])(),
     read = _collegeAPI.read,
     update = _collegeAPI.update,
     destroy = _collegeAPI.destroy,
-    collegeForm = _collegeAPI.collegeForm;
+    collegeForm = _collegeAPI.collegeForm,
+    noCreatedFormsColleges = _collegeAPI.noCreatedFormsColleges;
 
 var _commonServices = (0,_commonServices__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     loader = _commonServices.loader,
@@ -2432,9 +2437,27 @@ var college = function college() {
                   data: "registered_name"
                 }, {
                   data: "address"
+                }, {
+                  data: "is_college_form_created",
+                  render: function render(data, type, row) {
+                    if (row.is_college_form_created) {
+                      return '<span class="badge bg-success">Yes</span>';
+                    }
+
+                    return '<span class="badge bg-warning">No</span>';
+                  }
+                }, {
+                  data: "is_student_form_created",
+                  render: function render(data, type, row) {
+                    if (row.is_student_form_created) {
+                      return '<span class="badge bg-success">Yes</span>';
+                    }
+
+                    return '<span class="badge bg-warning">No</span>';
+                  }
                 }],
                 columnDefs: [{
-                  targets: 4,
+                  targets: 6,
                   render: function render(data, type, row) {
                     var action_buttons = "\n              <button type=\"button\" class=\"btn btn-primary btn-view-data\"><i class='fa fa-edit'></i></button>\n              <button type=\"button\" class=\"btn btn-danger btn-edit-data\"><i class='fa fa-trash'></i></button>\n            ";
                     return action_buttons;
@@ -2456,11 +2479,15 @@ var college = function college() {
     };
   }();
 
-  var modalCollegeList = function modalCollegeList() {
+  var modalCollegeList = function modalCollegeList(_ref4) {
+    var type = _ref4.type;
     var collegeList = new (datatables_net__WEBPACK_IMPORTED_MODULE_3___default())('#college-list', {
       ajax: {
-        url: read,
+        url: noCreatedFormsColleges,
         type: 'GET',
+        data: {
+          type: type
+        },
         dataType: 'json',
         headers: datatablesHeaders()
       },
@@ -2479,13 +2506,13 @@ var college = function college() {
   };
 
   var collegeForms = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_ref4) {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_ref5) {
       var data, requests, response;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              data = _ref4.data;
+              data = _ref5.data;
               _context3.prev = 1;
               show();
               _context3.next = 5;
@@ -2502,27 +2529,28 @@ var college = function college() {
               serverSuccessResponse({
                 response: response
               });
-              _context3.next = 17;
+              location.reload();
+              _context3.next = 18;
               break;
 
-            case 13:
-              _context3.prev = 13;
+            case 14:
+              _context3.prev = 14;
               _context3.t0 = _context3["catch"](1);
               hide();
               clientErrorResponse({
                 error: _context3.t0
               });
 
-            case 17:
+            case 18:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 13]]);
+      }, _callee3, null, [[1, 14]]);
     }));
 
     return function collegeForms(_x2) {
-      return _ref5.apply(this, arguments);
+      return _ref6.apply(this, arguments);
     };
   }();
 
@@ -2555,12 +2583,14 @@ var collegeAPI = function collegeAPI() {
   var update = null;
   var destroy = null;
   var collegeForm = "".concat(APP_URL, "master/college/college-form");
+  var noCreatedFormsColleges = "".concat(APP_URL, "master/college/no-form-created-colleges");
   return {
     create: create,
     read: read,
     update: update,
     destroy: destroy,
-    collegeForm: collegeForm
+    collegeForm: collegeForm,
+    noCreatedFormsColleges: noCreatedFormsColleges
   };
 };
 

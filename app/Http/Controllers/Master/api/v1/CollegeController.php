@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master\api\v1;
 
+use App\Http\Constants\FormType;
 use App\Http\Constants\Messages;
 use App\Http\Constants\Roles;
 use App\Http\Controllers\Controller;
@@ -97,9 +98,20 @@ class CollegeController extends Controller
     return response()->json($this->response);
   }
 
+  public function no_form_created_colleges(Request $request) {
+    $colleges = College::isFormCreated($request->type)->get();
+
+    $this->response->success = true;
+    $this->response->message = 'ok';
+    $this->response->data = $colleges;
+
+    return response()->json($this->response);
+  }
+
   public function college_form(Request $request) {
     try {
       $college_form = new CollegeForm($request->all());
+      $this->set_form_created($college_form, $request->type);
       $college_form->save();
 
       $this->response->success = true;
@@ -112,5 +124,20 @@ class CollegeController extends Controller
     }
 
     return response()->json($this->response);
+  }
+
+  private function set_form_created($form, $type) {
+    switch ($type) {
+      case FormType::COLLEGE:
+        $form->college()->update([
+          'is_college_form_created' => true
+        ]);
+        break;
+      case FormType::STUDENT:
+        $form->college()->update([
+          'is_student_form_created' => true
+        ]);
+        break;
+    }
   }
 }

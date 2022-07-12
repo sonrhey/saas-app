@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <script defer src="{{ asset('template-assets/assets/plugins/fontawesome/js/all.min.js') }}"></script>
     <link id="theme-style" rel="stylesheet" href="{{ asset('template-assets/assets/css/portal.css') }}">
+    <link rel="stylesheet" href="{{ asset('template-assets/assets/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/waitMe.min.css') }}">
     @yield('custom-css')
 </head>

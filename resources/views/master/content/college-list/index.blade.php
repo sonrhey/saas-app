@@ -10,19 +10,23 @@
     </div>
   </div>
   <div class="app-card-body p-3 p-lg-4">
-    <table class="table app-table-hover mb-0 text-left" id="college-list">
-      <thead>
-        <tr>
-          <th class="cell">No</th>
-          <th class="cell">College Name</th>
-          <th class="cell">Registered Name</th>
-          <th class="cell">Address</th>
-          <th class="cell">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table app-table-hover mb-0 text-left" id="college-list">
+        <thead>
+          <tr>
+            <th class="cell">No</th>
+            <th class="cell">College Name</th>
+            <th class="cell">Registered Name</th>
+            <th class="cell">Address</th>
+            <th class="cell">Has College Form</th>
+            <th class="cell">Has Student Form</th>
+            <th class="cell w-7">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 @endsection

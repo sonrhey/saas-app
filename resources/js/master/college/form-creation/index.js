@@ -1,15 +1,19 @@
 import 'formBuilder';
 import college from './../apis';
 import forms from './../forms';
+import constants from './../../../constants/index';
 
 const { modalCollegeList, collegeForms } = college();
 const { collegeFormObject } = forms();
+const { FORM_TYPE_COLLEGE } = constants();
 
-const loadCollegeList = modalCollegeList();
+const loadCollegeList = modalCollegeList({
+  type: FORM_TYPE_COLLEGE
+});
+
 
 const formB = (() => {
-  $('.form-builder').append('<textarea name="formBuilder" id="formBuilder"></textarea>');
-  $('textarea').formBuilder({
+  $('.form-builder').formBuilder({
     disabledActionButtons: ['data'],
     onSave: (evt, formData) => saveForm(formData),
   });
