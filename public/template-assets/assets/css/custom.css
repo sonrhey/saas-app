@@ -12,3 +12,7 @@
   display: table-cell;
   vertical-align: middle;
 }
+
+.w-7 {
+  width: 7em;
+}

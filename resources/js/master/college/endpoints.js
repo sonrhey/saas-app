@@ -4,8 +4,9 @@ const collegeAPI = () => {
   const update = null;
   const destroy = null;
   const collegeForm = `${APP_URL}master/college/college-form`;
+  const noCreatedFormsColleges = `${APP_URL}master/college/no-form-created-colleges`;
 
-  return { create, read, update, destroy, collegeForm }
+  return { create, read, update, destroy, collegeForm, noCreatedFormsColleges }
 }
 
 export default collegeAPI;

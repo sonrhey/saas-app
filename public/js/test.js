@@ -2299,9 +2299,13 @@ __webpack_require__.r(__webpack_exports__);
 var response = function response() {
   var RESPONSE_SUCCESS = 'linear-gradient(to right, #00b09b, #96c93d)';
   var RESPONSE_ERROR = 'linear-gradient(to bottom right, #CE1D4F, #E2886A';
+  var FORM_TYPE_COLLEGE = 'college';
+  var FORM_TYPE_STUDENT = 'student';
   return {
     RESPONSE_SUCCESS: RESPONSE_SUCCESS,
-    RESPONSE_ERROR: RESPONSE_ERROR
+    RESPONSE_ERROR: RESPONSE_ERROR,
+    FORM_TYPE_COLLEGE: FORM_TYPE_COLLEGE,
+    FORM_TYPE_STUDENT: FORM_TYPE_STUDENT
   };
 };
 
