@@ -20,10 +20,12 @@ class Roles {
 
   public $CURRENT_ROLE = null;
   public $CURRENT_URL = null;
-  
+  public $CURRENT_ROUTE = null;
+
   public function __construct()
   {
     $this->CURRENT_ROLE = (Auth::check()) ? Auth::user()->role->role_code : null;
     $this->CURRENT_URL = (Auth::check()) ? Domain::findByUserId(Auth::user()->user_id)->first()->url : null;
+    $this->CURRENT_ROUTE = ltrim($this->CURRENT_URL, '/');
   }
 }

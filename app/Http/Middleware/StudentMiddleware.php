@@ -18,7 +18,7 @@ class StudentMiddleware
     public function handle(Request $request, Closure $next)
     {
       $roles = new Roles();
-      if ('/'.request()->path() === $roles->CURRENT_URL) {
+      if (Str::is(Roles::STUDENT_WILDCARD, $roles->CURRENT_ROUTE)) {
         return $next($request);
       }
       return redirect($roles->CURRENT_URL);

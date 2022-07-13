@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Http\Constants\Roles;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CollegeMiddleware
 {
@@ -18,7 +19,7 @@ class CollegeMiddleware
     public function handle(Request $request, Closure $next)
     {
       $roles = new Roles();
-      if ('/'.request()->path() === $roles->CURRENT_URL) {
+      if (Str::is(Roles::COLLEGE_WILDCARD, $roles->CURRENT_ROUTE)) {
         return $next($request);
       }
       return redirect($roles->CURRENT_URL);
