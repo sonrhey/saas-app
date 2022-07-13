@@ -16,3 +16,16 @@
 .w-7 {
   width: 7em;
 }
+
+.my-forms {
+  width: 50%;
+  margin: auto;
+}
+
+.my-forms-control {
+  display: none;
+}
+
+.student-wrapper {
+  display: none;
+}

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Http\Constants\Roles;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MasterMiddleware
 {
@@ -18,7 +19,7 @@ class MasterMiddleware
     public function handle(Request $request, Closure $next)
     {
       $roles = new Roles();
-      if (request()->is(Roles::MASTER_WILDCARD)) {
+      if (Str::is(Roles::MASTER_WILDCARD, $roles->CURRENT_ROUTE)) {
         return $next($request);
       }
       return redirect($roles->CURRENT_URL);
