@@ -30251,28 +30251,31 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
-/*!***************************************!*\
-  !*** ./resources/js/college/index.js ***!
-  \***************************************/
+/*!***********************************************!*\
+  !*** ./resources/js/college/student/index.js ***!
+  \***********************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./forms */ "./resources/js/college/forms.js");
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api */ "./resources/js/college/api.js");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../forms */ "./resources/js/college/forms.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api */ "./resources/js/college/api.js");
 
 
 
-var _college = (0,_api__WEBPACK_IMPORTED_MODULE_1__["default"])(),
-    getForms = _college.getForms;
+var _forms = (0,_forms__WEBPACK_IMPORTED_MODULE_0__["default"])(),
+    studentRegistration = _forms.studentRegistration;
 
-var loadColleges = getForms();
-$("#flexSwitchCheckDefault").on("click", function () {
-  var checked = $(this).prop('checked');
+var _collegeApi = (0,_api__WEBPACK_IMPORTED_MODULE_1__["default"])(),
+    studentRegister = _collegeApi.studentRegister;
 
-  if (checked) {
-    $('.student-wrapper').fadeIn();
-    return;
-  }
-
-  $('.student-wrapper').hide();
+$('#student-form').on('submit', function (e) {
+  e.preventDefault();
+  studentRegistration.studentDetails.name = $('[name="name"]').val();
+  studentRegistration.studentDetails.address = $('[name="address"]').val();
+  studentRegistration.studentCredentials.username = $('[name="username"]').val();
+  studentRegistration.studentCredentials.email = $('[name="email"]').val();
+  studentRegistration.studentCredentials.password = $('[name="password"]').val();
+  studentRegister({
+    data: studentRegistration
+  });
 });
 })();
 

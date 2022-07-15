@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::group(['middleware' => 'college'], function() {
     Route::get('/college/{college}', [CollegeDashboard::class, 'index']);
     Route::get('/college/{college}/my-forms', [NavigationController::class, 'index']);
+    Route::get('/college/{college}/student-registration', [NavigationController::class, 'student_registration']);
+    Route::get('/college/{college}/student-list', [NavigationController::class, 'student_list']);
   });
 
   Route::group(['middleware' => 'student'], function() {
