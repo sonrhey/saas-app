@@ -31,14 +31,14 @@ const formBuilder = () => {
       if (item.type === 'button') {
         $('.college-form-submit').append(`
           <div class="mb-3">
-            <button type="${item.type}" class="${item.className}">${item.label}</button>
+            <button type="${item.subtype}" class="${item.className}">${item.label}</button>
           </div>
         `);
       } else {
         $('.college-form-submit').append(`
           <div class="mb-3">
-            <label class="form-label">${item.label}</label>
-            <input type=${item.type} placeholder="${item.placeholder}" class="${item.className}">
+            <label class="form-label">${item.label}</label> ${checkRequired(item).indicator}
+            <input type=${item.subtype} ${checkPlaceHolder(item)} name="${item.name}" class="${item.className}" ${checkRequired(item).required}>
           </div>
         `);
       }
@@ -52,18 +52,37 @@ const formBuilder = () => {
       if (item.type === 'button') {
         $('.student-form-submit').append(`
           <div class="mb-3">
-            <button type="${item.type}" class="${item.className}">${item.label}</button>
+            <button type="${item.subtype}" class="${item.className}">${item.label}</button>
           </div>
         `);
       } else {
         $('.student-form-submit').append(`
           <div class="mb-3">
-            <label class="form-label">${item.label}</label>
-            <input type=${item.type} placeholder="${item.placeholder}" class="${item.className}">
+            <label class="form-label">${item.label}</label> ${checkRequired(item).indicator}
+            <input type=${item.subtype} ${checkPlaceHolder(item)} name="${item.name}" class="${item.className}" ${checkRequired(item).required}>
           </div>
         `);
       }
     });
+  }
+
+  const checkPlaceHolder = (item) => {
+    let placeholder = null;
+    if (item.placeholder) {
+      placeholder = `placeholder="${item.placeholder}"`;
+    }
+
+    return placeholder;
+  }
+
+  const checkRequired = (item) => {
+    let required = null;
+    let indicator = null;
+    if (item.required) {
+      required = `required="${item.required}"`;
+      indicator = `<span style="color: red">*</span>`;
+    }
+    return { required, indicator };
   }
 
   return { build }
