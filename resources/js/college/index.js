@@ -1,7 +1,11 @@
 import forms from './forms';
 import college from './api';
 
-const { getForms } = college();
+const {
+        getForms,
+        collegeInformationData,
+        studentInformationData
+      } = college();
 
 const loadColleges = getForms();
 
@@ -13,4 +17,26 @@ $( "#flexSwitchCheckDefault").on( "click", function(){
     return;
   }
   $('.student-wrapper').hide();
+});
+
+$(".college-form-submit").on("submit", function(e) {
+  e.preventDefault();
+  const data = {
+    form_data: JSON.stringify($(this).serializeArray())
+  }
+
+  collegeInformationData({
+    data: data
+  });
+});
+
+$(".student-form-submit").on("submit", function(e) {
+  e.preventDefault();
+  const data = {
+    form_data: JSON.stringify($(this).serializeArray())
+  }
+
+  studentInformationData({
+    data: data
+  });
 });

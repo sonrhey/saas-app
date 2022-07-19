@@ -5,10 +5,33 @@ import DataTable from 'datatables.net';
 import 'datatables.net-dt/css/jquery.dataTables.css';
 import formBuilder from "./form-builder";
 
-const { create, read, update, destroy, register } = collegeAPI();
-const { loader, getHeaders, toastNotification, datatablesHeaders, serverSuccessResponse, clientErrorResponse } = commonServices();
-const { show, hide } = loader();
-const { build } = formBuilder();
+const {
+        create,
+        read,
+        update,
+        destroy,
+        register,
+        collegeFormData,
+        studentFormData
+      } = collegeAPI();
+
+const {
+        loader,
+        getHeaders,
+        toastNotification,
+        datatablesHeaders,
+        serverSuccessResponse,
+        clientErrorResponse
+      } = commonServices();
+
+const {
+        show,
+        hide
+      } = loader();
+
+const {
+        build
+      } = formBuilder();
 
 const college = () => {
   const getForms = async () => {
@@ -48,7 +71,46 @@ const college = () => {
     }
   }
 
-  return { getForms, studentRegister }
+  const collegeInformationData = async ({
+    data: data
+  }) => {
+    try {
+      console.log(data);
+      show();
+      const requests = await axios.post(collegeFormData, data, getHeaders());
+      const response = await requests.data;
+      hide();
+      serverSuccessResponse({
+        response: response
+      });
+    } catch (error) {
+      hide();
+      clientErrorResponse({
+        error: error
+      });
+    }
+  }
+
+  const studentInformationData = async ({
+    data: data
+  }) => {
+    try {
+      show();
+      const requests = await axios.post(studentFormData, data, getHeaders());
+      const response = await requests.data;
+      hide();
+      serverSuccessResponse({
+        response: response
+      });
+    } catch (error) {
+      hide();
+      clientErrorResponse({
+        error: error
+      });
+    }
+  }
+
+  return { getForms, studentRegister, collegeInformationData, studentInformationData }
 }
 
 export default college;

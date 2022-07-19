@@ -2195,7 +2195,9 @@ var _collegeAPI = (0,_endpoint__WEBPACK_IMPORTED_MODULE_1__["default"])(),
     read = _collegeAPI.read,
     update = _collegeAPI.update,
     destroy = _collegeAPI.destroy,
-    register = _collegeAPI.register;
+    register = _collegeAPI.register,
+    collegeFormData = _collegeAPI.collegeFormData,
+    studentFormData = _collegeAPI.studentFormData;
 
 var _commonServices = (0,_commonServices__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     loader = _commonServices.loader,
@@ -2309,9 +2311,108 @@ var college = function college() {
     };
   }();
 
+  var collegeInformationData = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_ref4) {
+      var data, requests, response;
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              data = _ref4.data;
+              _context3.prev = 1;
+              console.log(data);
+              show();
+              _context3.next = 6;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post(collegeFormData, data, getHeaders());
+
+            case 6:
+              requests = _context3.sent;
+              _context3.next = 9;
+              return requests.data;
+
+            case 9:
+              response = _context3.sent;
+              hide();
+              serverSuccessResponse({
+                response: response
+              });
+              _context3.next = 18;
+              break;
+
+            case 14:
+              _context3.prev = 14;
+              _context3.t0 = _context3["catch"](1);
+              hide();
+              clientErrorResponse({
+                error: _context3.t0
+              });
+
+            case 18:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 14]]);
+    }));
+
+    return function collegeInformationData(_x2) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
+  var studentInformationData = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(_ref6) {
+      var data, requests, response;
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              data = _ref6.data;
+              _context4.prev = 1;
+              show();
+              _context4.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post(studentFormData, data, getHeaders());
+
+            case 5:
+              requests = _context4.sent;
+              _context4.next = 8;
+              return requests.data;
+
+            case 8:
+              response = _context4.sent;
+              hide();
+              serverSuccessResponse({
+                response: response
+              });
+              _context4.next = 17;
+              break;
+
+            case 13:
+              _context4.prev = 13;
+              _context4.t0 = _context4["catch"](1);
+              hide();
+              clientErrorResponse({
+                error: _context4.t0
+              });
+
+            case 17:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 13]]);
+    }));
+
+    return function studentInformationData(_x3) {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+
   return {
     getForms: getForms,
-    studentRegister: studentRegister
+    studentRegister: studentRegister,
+    collegeInformationData: collegeInformationData,
+    studentInformationData: studentInformationData
   };
 };
 
@@ -2336,12 +2437,16 @@ var collegeAPI = function collegeAPI() {
   var update = null;
   var destroy = null;
   var register = "".concat(APP_URL, "college/register-student");
+  var collegeFormData = "".concat(APP_URL, "college/college-form-data");
+  var studentFormData = "".concat(APP_URL, "college/student-form-data");
   return {
     create: create,
     read: read,
     update: update,
     destroy: destroy,
-    register: register
+    register: register,
+    collegeFormData: collegeFormData,
+    studentFormData: studentFormData
   };
 };
 
@@ -2392,9 +2497,9 @@ var formBuilder = function formBuilder() {
     var input = null;
     college_form_data.forEach(function (item) {
       if (item.type === 'button') {
-        $('.college-form-submit').append("\n          <div class=\"mb-3\">\n            <button type=\"".concat(item.type, "\" class=\"").concat(item.className, "\">").concat(item.label, "</button>\n          </div>\n        "));
+        $('.college-form-submit').append("\n          <div class=\"mb-3\">\n            <button type=\"".concat(item.subtype, "\" class=\"").concat(item.className, "\">").concat(item.label, "</button>\n          </div>\n        "));
       } else {
-        $('.college-form-submit').append("\n          <div class=\"mb-3\">\n            <label class=\"form-label\">".concat(item.label, "</label>\n            <input type=").concat(item.type, " placeholder=\"").concat(item.placeholder, "\" class=\"").concat(item.className, "\">\n          </div>\n        "));
+        $('.college-form-submit').append("\n          <div class=\"mb-3\">\n            <label class=\"form-label\">".concat(item.label, "</label> ").concat(checkRequired(item).indicator, "\n            <input type=").concat(item.subtype, " ").concat(checkPlaceHolder(item), " name=\"").concat(item.name, "\" class=\"").concat(item.className, "\" ").concat(checkRequired(item).required, ">\n          </div>\n        "));
       }
     });
   };
@@ -2403,11 +2508,36 @@ var formBuilder = function formBuilder() {
     var student_form_data = _ref3.student_form_data;
     student_form_data.forEach(function (item) {
       if (item.type === 'button') {
-        $('.student-form-submit').append("\n          <div class=\"mb-3\">\n            <button type=\"".concat(item.type, "\" class=\"").concat(item.className, "\">").concat(item.label, "</button>\n          </div>\n        "));
+        $('.student-form-submit').append("\n          <div class=\"mb-3\">\n            <button type=\"".concat(item.subtype, "\" class=\"").concat(item.className, "\">").concat(item.label, "</button>\n          </div>\n        "));
       } else {
-        $('.student-form-submit').append("\n          <div class=\"mb-3\">\n            <label class=\"form-label\">".concat(item.label, "</label>\n            <input type=").concat(item.type, " placeholder=\"").concat(item.placeholder, "\" class=\"").concat(item.className, "\">\n          </div>\n        "));
+        $('.student-form-submit').append("\n          <div class=\"mb-3\">\n            <label class=\"form-label\">".concat(item.label, "</label> ").concat(checkRequired(item).indicator, "\n            <input type=").concat(item.subtype, " ").concat(checkPlaceHolder(item), " name=\"").concat(item.name, "\" class=\"").concat(item.className, "\" ").concat(checkRequired(item).required, ">\n          </div>\n        "));
       }
     });
+  };
+
+  var checkPlaceHolder = function checkPlaceHolder(item) {
+    var placeholder = null;
+
+    if (item.placeholder) {
+      placeholder = "placeholder=\"".concat(item.placeholder, "\"");
+    }
+
+    return placeholder;
+  };
+
+  var checkRequired = function checkRequired(item) {
+    var required = null;
+    var indicator = null;
+
+    if (item.required) {
+      required = "required=\"".concat(item.required, "\"");
+      indicator = "<span style=\"color: red\">*</span>";
+    }
+
+    return {
+      required: required,
+      indicator: indicator
+    };
   };
 
   return {
