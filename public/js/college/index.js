@@ -2596,8 +2596,13 @@ var forms = function forms() {
       password: null
     }
   };
+  var informationSubmit = {
+    form_data: null,
+    student_id: null
+  };
   return {
-    studentRegistration: studentRegistration
+    studentRegistration: studentRegistration,
+    informationSubmit: informationSubmit
   };
 };
 
@@ -30414,6 +30419,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _forms = (0,_forms__WEBPACK_IMPORTED_MODULE_0__["default"])(),
+    informationSubmit = _forms.informationSubmit;
+
 var _college = (0,_api__WEBPACK_IMPORTED_MODULE_1__["default"])(),
     getForms = _college.getForms,
     collegeInformationData = _college.collegeInformationData,
@@ -30434,24 +30442,21 @@ $("#flexSwitchCheckDefault").on("click", function () {
 });
 $(".college-form-submit").on("submit", function (e) {
   e.preventDefault();
-  var data = {
-    form_data: JSON.stringify($(this).serializeArray())
-  };
+  informationSubmit.form_data = JSON.stringify($(this).serializeArray());
   collegeInformationData({
-    data: data
+    data: informationSubmit
   });
 });
 $(".student-form-submit").on("submit", function (e) {
   e.preventDefault();
-  var data = {
-    form_data: JSON.stringify($(this).serializeArray())
-  };
+  informationSubmit.form_data = JSON.stringify($(this).serializeArray());
   studentInformationData({
-    data: data
+    data: informationSubmit
   });
 });
 $('#student-list tbody').on('dblclick', 'tr', function () {
   var data = loadStudents.row($(this)).data();
+  informationSubmit.student_id = data.student_id;
   $('[name="student_name"]').val(data.name);
   $('#student-list-modal').modal('hide');
   $('.my-forms').removeClass('d-none');

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Http\Constants\Roles;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class StudentMiddleware
 {

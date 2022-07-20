@@ -13,14 +13,7 @@ class StudentInformation extends Model
     protected $table = 'student_information';
     protected $primaryKey = 'student_information_id';
     protected $fillable = [
-      'college_id',
-      'form_data'
+      'form_data',
+      'student_id'
     ];
-
-    public static function boot() {
-      parent::boot();
-      self::creating(function ($model) {
-        $model->college_id = Auth::user()->college->college_id;
-      });
-    }
 }

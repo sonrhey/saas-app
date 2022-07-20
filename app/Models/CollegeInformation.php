@@ -14,7 +14,8 @@ class CollegeInformation extends Model
   protected $primaryKey = 'college_information_id';
   protected $fillable = [
     'college_id',
-    'form_data'
+    'form_data',
+    'student_id'
   ];
 
   public static function boot() {
