@@ -18,7 +18,7 @@
 }
 
 .my-forms {
-  width: 50%;
+  /* width: 50%; */
   margin: auto;
 }
 
@@ -28,4 +28,8 @@
 
 .student-wrapper {
   display: none;
+}
+
+.search-student {
+  margin: auto;
 }

@@ -12,7 +12,8 @@ const {
         destroy,
         register,
         collegeFormData,
-        studentFormData
+        studentFormData,
+        studentListData
       } = collegeAPI();
 
 const {
@@ -110,7 +111,26 @@ const college = () => {
     }
   }
 
-  return { getForms, studentRegister, collegeInformationData, studentInformationData }
+  const studentList = () => {
+    const collegeList = new DataTable('#student-list', {
+      ajax: {
+        url: studentListData,
+        type: 'GET',
+        dataType: 'json',
+        headers: datatablesHeaders()
+      },
+      order : [ 0, 'desc' ],
+      columns: [
+        { data: "student_id"},
+        { data: "name"},
+        { data: "address"}
+      ]
+    });
+
+    return collegeList;
+  }
+
+  return { getForms, studentRegister, collegeInformationData, studentInformationData, studentList }
 }
 
 export default college;

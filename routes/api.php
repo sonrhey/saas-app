@@ -23,8 +23,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
   Route::get('/v1/master/college/no-form-created-colleges', [CollegeController::class, 'no_form_created_colleges']);
   Route::post('/v1/master/college/college-form', [CollegeController::class, 'college_form']);
 
-  Route::get('/v1/college/get-forms', [FormController::class, 'get_college_forms']);
   Route::post('/v1/college/register-student', [StudentController::class, 'register_student']);
+  Route::get('/v1/college/student-list', [StudentController::class, 'student_list']);
+
+  Route::get('/v1/college/get-forms', [FormController::class, 'get_college_forms']);
   Route::post('/v1/college/college-form-data', [FormController::class, 'college_form_data']);
   Route::post('/v1/college/student-form-data', [FormController::class, 'student_form_data']);
 });

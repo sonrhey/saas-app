@@ -2197,7 +2197,8 @@ var _collegeAPI = (0,_endpoint__WEBPACK_IMPORTED_MODULE_1__["default"])(),
     destroy = _collegeAPI.destroy,
     register = _collegeAPI.register,
     collegeFormData = _collegeAPI.collegeFormData,
-    studentFormData = _collegeAPI.studentFormData;
+    studentFormData = _collegeAPI.studentFormData,
+    studentListData = _collegeAPI.studentListData;
 
 var _commonServices = (0,_commonServices__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     loader = _commonServices.loader,
@@ -2408,11 +2409,32 @@ var college = function college() {
     };
   }();
 
+  var studentList = function studentList() {
+    var collegeList = new (datatables_net__WEBPACK_IMPORTED_MODULE_3___default())('#student-list', {
+      ajax: {
+        url: studentListData,
+        type: 'GET',
+        dataType: 'json',
+        headers: datatablesHeaders()
+      },
+      order: [0, 'desc'],
+      columns: [{
+        data: "student_id"
+      }, {
+        data: "name"
+      }, {
+        data: "address"
+      }]
+    });
+    return collegeList;
+  };
+
   return {
     getForms: getForms,
     studentRegister: studentRegister,
     collegeInformationData: collegeInformationData,
-    studentInformationData: studentInformationData
+    studentInformationData: studentInformationData,
+    studentList: studentList
   };
 };
 
@@ -2439,6 +2461,7 @@ var collegeAPI = function collegeAPI() {
   var register = "".concat(APP_URL, "college/register-student");
   var collegeFormData = "".concat(APP_URL, "college/college-form-data");
   var studentFormData = "".concat(APP_URL, "college/student-form-data");
+  var studentListData = "".concat(APP_URL, "college/student-list");
   return {
     create: create,
     read: read,
@@ -2446,7 +2469,8 @@ var collegeAPI = function collegeAPI() {
     destroy: destroy,
     register: register,
     collegeFormData: collegeFormData,
-    studentFormData: studentFormData
+    studentFormData: studentFormData,
+    studentListData: studentListData
   };
 };
 
