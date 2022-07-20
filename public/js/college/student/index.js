@@ -2596,8 +2596,13 @@ var forms = function forms() {
       password: null
     }
   };
+  var informationSubmit = {
+    form_data: null,
+    student_id: null
+  };
   return {
-    studentRegistration: studentRegistration
+    studentRegistration: studentRegistration,
+    informationSubmit: informationSubmit
   };
 };
 

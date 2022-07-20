@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class StudentController extends Controller
@@ -31,6 +32,9 @@ class StudentController extends Controller
   public function register_student(Request $request) {
     try {
       DB::beginTransaction();
+        $details = (array) $request->studentDetails;
+        $credentials = (array) $request->studentCredentials;
+
         $user = new User((array) $request->studentCredentials);
         $creds = (object) $request->studentCredentials;
         $user->name = $request->studentDetails["name"];
@@ -51,6 +55,19 @@ class StudentController extends Controller
         $domain->url = '/student/'.$slug;
         $domain->slug = $slug;
         $domain->save();
+
+        Mail::send('college.email-template.index', ['details' => $details, 'credentials' => $credentials, 'domain' => $domain] ,function($message) use($credentials){
+          $message->to($credentials['email']);
+          $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+          $message->subject('Student Registration Confirmation');
+        });
+
+        if (Mail::flushMacros() ) {
+          DB::rollBack();
+          $this->response->success = true;
+          $this->response->message = 'ok';
+          $this->response->data = Mail::flushMacros();
+        }
       DB::commit();
 
       $this->response->success = true;

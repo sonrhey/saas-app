@@ -11,7 +11,12 @@ const forms = () => {
     }
   }
 
-  return { studentRegistration }
+  const informationSubmit = {
+    form_data: null,
+    student_id: null
+  }
+
+  return { studentRegistration, informationSubmit }
 }
 
 export default forms;

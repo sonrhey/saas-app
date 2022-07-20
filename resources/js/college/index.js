@@ -1,6 +1,9 @@
 import forms from './forms';
 import college from './api';
 
+
+const { informationSubmit } = forms();
+
 const {
         getForms,
         collegeInformationData,
@@ -23,28 +26,23 @@ $( "#flexSwitchCheckDefault").on( "click", function(){
 
 $(".college-form-submit").on("submit", function(e) {
   e.preventDefault();
-  const data = {
-    form_data: JSON.stringify($(this).serializeArray())
-  }
-
+  informationSubmit.form_data = JSON.stringify($(this).serializeArray());
   collegeInformationData({
-    data: data
+    data: informationSubmit
   });
 });
 
 $(".student-form-submit").on("submit", function(e) {
   e.preventDefault();
-  const data = {
-    form_data: JSON.stringify($(this).serializeArray())
-  }
-
+  informationSubmit.form_data = JSON.stringify($(this).serializeArray());
   studentInformationData({
-    data: data
+    data: informationSubmit
   });
 });
 
 $('#student-list tbody').on('dblclick', 'tr', function () {
   const data = loadStudents.row($(this)).data();
+  informationSubmit.student_id = data.student_id
   $('[name="student_name"]').val(data.name);
   $('#student-list-modal').modal('hide');
   $('.my-forms').removeClass('d-none');
