@@ -4,10 +4,12 @@ import college from './api';
 const {
         getForms,
         collegeInformationData,
-        studentInformationData
+        studentInformationData,
+        studentList
       } = college();
 
 const loadColleges = getForms();
+const loadStudents = studentList();
 
 $( "#flexSwitchCheckDefault").on( "click", function(){
   const checked = $(this).prop('checked');
@@ -39,4 +41,11 @@ $(".student-form-submit").on("submit", function(e) {
   studentInformationData({
     data: data
   });
+});
+
+$('#student-list tbody').on('dblclick', 'tr', function () {
+  const data = loadStudents.row($(this)).data();
+  $('[name="student_name"]').val(data.name);
+  $('#student-list-modal').modal('hide');
+  $('.my-forms').removeClass('d-none');
 });

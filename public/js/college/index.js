@@ -2197,7 +2197,8 @@ var _collegeAPI = (0,_endpoint__WEBPACK_IMPORTED_MODULE_1__["default"])(),
     destroy = _collegeAPI.destroy,
     register = _collegeAPI.register,
     collegeFormData = _collegeAPI.collegeFormData,
-    studentFormData = _collegeAPI.studentFormData;
+    studentFormData = _collegeAPI.studentFormData,
+    studentListData = _collegeAPI.studentListData;
 
 var _commonServices = (0,_commonServices__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     loader = _commonServices.loader,
@@ -2408,11 +2409,32 @@ var college = function college() {
     };
   }();
 
+  var studentList = function studentList() {
+    var collegeList = new (datatables_net__WEBPACK_IMPORTED_MODULE_3___default())('#student-list', {
+      ajax: {
+        url: studentListData,
+        type: 'GET',
+        dataType: 'json',
+        headers: datatablesHeaders()
+      },
+      order: [0, 'desc'],
+      columns: [{
+        data: "student_id"
+      }, {
+        data: "name"
+      }, {
+        data: "address"
+      }]
+    });
+    return collegeList;
+  };
+
   return {
     getForms: getForms,
     studentRegister: studentRegister,
     collegeInformationData: collegeInformationData,
-    studentInformationData: studentInformationData
+    studentInformationData: studentInformationData,
+    studentList: studentList
   };
 };
 
@@ -2439,6 +2461,7 @@ var collegeAPI = function collegeAPI() {
   var register = "".concat(APP_URL, "college/register-student");
   var collegeFormData = "".concat(APP_URL, "college/college-form-data");
   var studentFormData = "".concat(APP_URL, "college/student-form-data");
+  var studentListData = "".concat(APP_URL, "college/student-list");
   return {
     create: create,
     read: read,
@@ -2446,7 +2469,8 @@ var collegeAPI = function collegeAPI() {
     destroy: destroy,
     register: register,
     collegeFormData: collegeFormData,
-    studentFormData: studentFormData
+    studentFormData: studentFormData,
+    studentListData: studentListData
   };
 };
 
@@ -30393,9 +30417,11 @@ __webpack_require__.r(__webpack_exports__);
 var _college = (0,_api__WEBPACK_IMPORTED_MODULE_1__["default"])(),
     getForms = _college.getForms,
     collegeInformationData = _college.collegeInformationData,
-    studentInformationData = _college.studentInformationData;
+    studentInformationData = _college.studentInformationData,
+    studentList = _college.studentList;
 
 var loadColleges = getForms();
+var loadStudents = studentList();
 $("#flexSwitchCheckDefault").on("click", function () {
   var checked = $(this).prop('checked');
 
@@ -30423,6 +30449,12 @@ $(".student-form-submit").on("submit", function (e) {
   studentInformationData({
     data: data
   });
+});
+$('#student-list tbody').on('dblclick', 'tr', function () {
+  var data = loadStudents.row($(this)).data();
+  $('[name="student_name"]').val(data.name);
+  $('#student-list-modal').modal('hide');
+  $('.my-forms').removeClass('d-none');
 });
 })();
 

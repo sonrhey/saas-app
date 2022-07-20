@@ -64,4 +64,13 @@ class StudentController extends Controller
     }
     return response()->json($this->response);
   }
+
+  public function student_list() {
+    $student_list = Student::findByCollegeId()->get();
+
+    $this->response->success = true;
+    $this->response->message = 'ok';
+    $this->response->data = $student_list;
+    return response()->json($this->response);
+  }
 }
