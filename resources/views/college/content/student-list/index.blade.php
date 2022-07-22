@@ -11,12 +11,11 @@
   </div>
   <div class="app-card-body p-3 p-lg-4">
     <div class="table-responsive">
-      <table class="table app-table-hover mb-0 text-left" id="college-list">
+      <table class="table app-table-hover mb-0 text-left w-100" id="student-list">
         <thead>
           <tr>
             <th class="cell">No</th>
             <th class="cell">Student Name</th>
-            <th class="cell">Student Age</th>
             <th class="cell">Address</th>
             <th class="cell">Has Filled up Form</th>
             <th class="cell w-7">Action</th>
@@ -31,5 +30,5 @@
 @endsection
 
 @section('custom-js')
-<script src="{{ asset('js/college/index.js') }}"></script>
+<script src="{{ asset('js/college/student/list.js') }}"></script>
 @endsection

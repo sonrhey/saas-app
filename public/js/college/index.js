@@ -2410,7 +2410,7 @@ var college = function college() {
   }();
 
   var studentList = function studentList() {
-    var collegeList = new (datatables_net__WEBPACK_IMPORTED_MODULE_3___default())('#student-list', {
+    var studentList = new (datatables_net__WEBPACK_IMPORTED_MODULE_3___default())('#student-list', {
       ajax: {
         url: studentListData,
         type: 'GET',
@@ -2426,7 +2426,41 @@ var college = function college() {
         data: "address"
       }]
     });
-    return collegeList;
+    return studentList;
+  };
+
+  var studentDisplayList = function studentDisplayList() {
+    var studentList = new (datatables_net__WEBPACK_IMPORTED_MODULE_3___default())('#student-list', {
+      ajax: {
+        url: studentListData,
+        type: 'GET',
+        dataType: 'json',
+        headers: datatablesHeaders()
+      },
+      order: [0, 'desc'],
+      columns: [{
+        data: "student_id"
+      }, {
+        data: "name"
+      }, {
+        data: "address"
+      }, {
+        data: "address"
+      }],
+      columnDefs: [{
+        targets: 3,
+        render: function render(data, type, row) {
+          return '<span class="badge bg-success">Yes</span>';
+        }
+      }, {
+        targets: 4,
+        render: function render(data, type, row) {
+          var action_buttons = "\n              <button type=\"button\" class=\"btn btn-primary btn-view-data\"><i class='fa fa-edit'></i></button>\n              <button type=\"button\" class=\"btn btn-danger btn-edit-data\"><i class='fa fa-trash'></i></button>\n            ";
+          return action_buttons;
+        }
+      }]
+    });
+    return studentList;
   };
 
   return {
@@ -2434,7 +2468,8 @@ var college = function college() {
     studentRegister: studentRegister,
     collegeInformationData: collegeInformationData,
     studentInformationData: studentInformationData,
-    studentList: studentList
+    studentList: studentList,
+    studentDisplayList: studentDisplayList
   };
 };
 

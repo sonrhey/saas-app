@@ -112,7 +112,7 @@ const college = () => {
   }
 
   const studentList = () => {
-    const collegeList = new DataTable('#student-list', {
+    const studentList = new DataTable('#student-list', {
       ajax: {
         url: studentListData,
         type: 'GET',
@@ -127,10 +127,48 @@ const college = () => {
       ]
     });
 
-    return collegeList;
+    return studentList;
   }
 
-  return { getForms, studentRegister, collegeInformationData, studentInformationData, studentList }
+  const studentDisplayList = () => {
+    const studentList = new DataTable('#student-list', {
+      ajax: {
+        url: studentListData,
+        type: 'GET',
+        dataType: 'json',
+        headers: datatablesHeaders()
+      },
+      order : [ 0, 'desc' ],
+      columns: [
+        { data: "student_id"},
+        { data: "name"},
+        { data: "address"},
+        { data: "address"}
+      ],
+      columnDefs: [
+        {
+          targets: 3,
+          render : function ( data, type, row ) {
+            return '<span class="badge bg-success">Yes</span>';
+          }
+        },
+        {
+          targets: 4,
+          render : function ( data, type, row ) {
+            const action_buttons = `
+              <button type="button" class="btn btn-primary btn-view-data"><i class='fa fa-edit'></i></button>
+              <button type="button" class="btn btn-danger btn-edit-data"><i class='fa fa-trash'></i></button>
+            `;
+            return action_buttons;
+          }
+        }
+      ]
+    });
+
+    return studentList;
+  }
+
+  return { getForms, studentRegister, collegeInformationData, studentInformationData, studentList, studentDisplayList }
 }
 
 export default college;
