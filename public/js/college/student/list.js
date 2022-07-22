@@ -2608,43 +2608,6 @@ var formBuilder = function formBuilder() {
 
 /***/ }),
 
-/***/ "./resources/js/college/forms.js":
-/*!***************************************!*\
-  !*** ./resources/js/college/forms.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-var forms = function forms() {
-  var studentRegistration = {
-    studentDetails: {
-      name: null,
-      address: null
-    },
-    studentCredentials: {
-      username: null,
-      email: null,
-      password: null
-    }
-  };
-  var informationSubmit = {
-    form_data: null,
-    student_id: null
-  };
-  return {
-    studentRegistration: studentRegistration,
-    informationSubmit: informationSubmit
-  };
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (forms);
-
-/***/ }),
-
 /***/ "./resources/js/commonServices.js":
 /*!****************************************!*\
   !*** ./resources/js/commonServices.js ***!
@@ -30445,32 +30408,17 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
-/*!***********************************************!*\
-  !*** ./resources/js/college/student/index.js ***!
-  \***********************************************/
+/*!**********************************************!*\
+  !*** ./resources/js/college/student/list.js ***!
+  \**********************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../forms */ "./resources/js/college/forms.js");
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api */ "./resources/js/college/api.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../api */ "./resources/js/college/api.js");
 
 
+var _college = (0,_api__WEBPACK_IMPORTED_MODULE_0__["default"])(),
+    studentDisplayList = _college.studentDisplayList;
 
-var _forms = (0,_forms__WEBPACK_IMPORTED_MODULE_0__["default"])(),
-    studentRegistration = _forms.studentRegistration;
-
-var _collegeApi = (0,_api__WEBPACK_IMPORTED_MODULE_1__["default"])(),
-    studentRegister = _collegeApi.studentRegister;
-
-$('#student-form').on('submit', function (e) {
-  e.preventDefault();
-  studentRegistration.studentDetails.name = $('[name="name"]').val();
-  studentRegistration.studentDetails.address = $('[name="address"]').val();
-  studentRegistration.studentCredentials.username = $('[name="username"]').val();
-  studentRegistration.studentCredentials.email = $('[name="email"]').val();
-  studentRegistration.studentCredentials.password = $('[name="password"]').val();
-  studentRegister({
-    data: studentRegistration
-  });
-});
+var displayStudents = studentDisplayList();
 })();
 
 /******/ })()
